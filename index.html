@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sürpriz Kutu Şakası</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #74b9ff, #a29bfe);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-size: 1.8rem;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        /* Kutu Tasarımı */
+        .box-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gift-box {
+            width: 120px;
+            height: 120px;
+            background-color: #d63031;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Kutu kurdelesi */
+        .gift-box::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 100%;
+            background-color: #ffeaa7;
+        }
+
+        .gift-box::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 25px;
+            background-color: #ffeaa7;
+        }
+
+        .instruction {
+            margin-top: 25px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            user-select: none;
+        }
+
+        /* Sonuç Mesajı Ekranı */
+        .result-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .result-screen h2 {
+            font-size: 2.5rem;
+            color: #fff;
+            background: #e84393;
+            padding: 20px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="baslik">Sana bir hediyem var! 🎁</h1>
+
+    <!-- Kutu Bölümü -->
+    <div class="box-container" id="kutuKonteyner" onclick="kutuTiklandi()">
+        <div class="gift-box" id="hediyeKutusu"></div>
+        <div class="instruction">Tıkla</div>
+    </div>
+
+    <!-- Sürpriz Sonuç Bölümü -->
+    <div class="result-screen" id="sonucEkrani">
+        <h2>Femboy Gürcü (Femboy Kayra)</h2>
+    </div>
+
+    <script>
+        let tiklamaSayisi = 0;
+        const maksimumTiklama = 6;
+
+        function kutuTiklandi() {
+            tiklamaSayisi++;
+
+            const kutu = document.getElementById("hediyeKutusu");
+            const baslik = document.getElementById("baslik");
+            const kutuKonteyner = document.getElementById("kutuKonteyner");
+            const sonucEkrani = document.getElementById("sonucEkrani");
+
+            if (tiklamaSayisi < maksimumTiklama) {
+                // Her tıklamada kutuyu biraz daha büyüt (oranı artır)
+                let yeniBoyut = 120 + (tiklamaSayisi * 40); 
+                kutu.style.width = yeniBoyut + "px";
+                kutu.style.height = yeniBoyut + "px";
+
+                // Eğlenceli uyarı metinleri
+                if (tiklamaSayisi === 3) {
+                    baslik.innerText = "Hmm, biraz daha zorla dostum! 😏";
+                } else if (tiklamaSayisi === 5) {
+                    baslik.innerText = "Son bir tıklama kaldı! 🚀";
+                }
+            } else {
+                // 6. Dokunuş: Kutuyu gizle, sürprizi göster
+                kutuKonteyner.style.display = "none";
+                baslik.style.display = "none";
+                sonucEkrani.style.display = "flex";
+            }
+        }
+    </script>
+</body>
+</html>
